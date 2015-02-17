@@ -15,6 +15,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Set up multiple servers for different services
   # NOTE: Make sure all IPs are on the same subnet, e.g. ip_end should always begin with 22
 
+  # Required because vagrant now generates keypair by default
+  # See https://github.com/mitchellh/vagrant/issues/5059
+  config.ssh.insert_key = false
+  config.ssh.private_key_path = "~/.vagrant.d/insecure_private_key"
+
   config.vm.define "webserver" do |webserver|
     ip_end = "222"
     webserver.vm.box = BOX_IMAGE
